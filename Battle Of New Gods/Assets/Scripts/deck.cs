@@ -33,6 +33,7 @@ public class deck : MonoBehaviour
 
 	}
 
+	//this is only a visual representation of the cards still need a way to track them through code so we can make them actually have effects.
 	void drawStartHand(){
 		for(int i = 0; i < 5; i++){
 			GameObject cardGO = (GameObject)Instantiate(Decks.Axecards[cards[CardID()]], Vector3.zero,Quaternion.identity);
