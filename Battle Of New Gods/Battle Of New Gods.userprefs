@@ -1,9 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\dropZone.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\deck.cs">
     <Files>
+      <File FileName="Assets\Scripts\deck.cs" Line="31" Column="5" />
       <File FileName="Assets\Scripts\dropZone.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\dragg.cs" Line="13" Column="34" />
+      <File FileName="Assets\Scripts\dragg.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\premadeDecks.cs" Line="7" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
