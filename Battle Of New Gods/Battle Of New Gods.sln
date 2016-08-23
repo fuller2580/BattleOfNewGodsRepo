@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{4BDE4660-4FF1-7C35-393E-50F986A9A103}") = "Battle Of New Gods", "Assembly-CSharp.csproj", "{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
