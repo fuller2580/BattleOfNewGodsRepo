@@ -14,9 +14,12 @@ public class deck : MonoBehaviour
 	premadeDecks Decks;
 	public void shuffle()
 	{
+		if (hand == null) {
+			hand = new List<int> ();
+		} 
 		if (cards == null) {
 			cards = new List<int> ();
-	} 
+		} 
 		else {
 			cards.Clear ();
 		}
@@ -38,24 +41,23 @@ public class deck : MonoBehaviour
 	}
 
 	void drawFunction(){
-		if (List.Count < 7) {
+		if (hand.Count < 7) {
 
-			int cID = CardID;
-			GameObject cardGO = (GameObject)Instantiate (Decks.Axecards [cards [cID ()]], Vector3.zero, Quaternion.identity);
+			int cID = CardID();
+			GameObject cardGO = (GameObject)Instantiate (Decks.Axecards [cards[cID]], Vector3.zero, Quaternion.identity);
 			cardGO.transform.SetParent (Hand);
 			hand.Add(cID);
 		}
-			else
-			{
-				print("Hand is full");
-			}
+		else{
+			print("Hand is full");
+		}
 
 		}
 
 	//this is only a visual representation of the cards still need a way to track them through code so we can make them actually have effects.
 	void drawStartHand(){
 		for(int i = 0; i < 5; i++){
-			drawFunction;
+			drawFunction();
 		}
 	}
 
