@@ -7,4 +7,7 @@ public class premadeDecks : MonoBehaviour {
 	public List<GameObject> Elecards;
 	public List<GameObject> Solcards;
 
+	void Start(){
+		
+	}
 }

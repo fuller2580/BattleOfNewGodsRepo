@@ -6,8 +6,8 @@ public class deck : MonoBehaviour
 {
 	List<int> cards;
 	List<int> hand;
-
-
+	bool firstDraw = true;
+	int totalCardsPlayed = 0;
 
 	int currentCardID = 0;
 	public Transform Hand;
@@ -36,8 +36,12 @@ public class deck : MonoBehaviour
 			cards [n] = temp;
 		}
 		//testCardOrder();
-		drawStartHand();
+		//drawStartHand();
 
+	}
+
+	public void playedCard(int id){
+		hand.RemoveAt(hand.IndexOf(id));
 	}
 
 	void drawFunction(){
@@ -46,7 +50,8 @@ public class deck : MonoBehaviour
 			int cID = CardID();
 			GameObject cardGO = (GameObject)Instantiate (Decks.Axecards [cards[cID]], Vector3.zero, Quaternion.identity);
 			cardGO.transform.SetParent (Hand);
-			hand.Add(cID);
+			cardGO.GetComponent<dragg>().setCardID(cards[cID]);
+			hand.Add(cards[cID]);
 		}
 		else{
 			print("Hand is full");
@@ -81,7 +86,11 @@ public class deck : MonoBehaviour
 	void Update () {
 		
 		if(Input.GetKeyDown(KeyCode.Space)){
-			drawFunction();//what ever your draw function is
+			if(firstDraw){
+				drawStartHand(); 
+				firstDraw = false;
+			}
+			else drawFunction();
 		}
 	}
 }

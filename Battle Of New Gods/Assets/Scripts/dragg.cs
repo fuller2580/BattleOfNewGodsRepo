@@ -9,6 +9,7 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	public Transform OGParent = null;
 	GameObject placeHolder = null;
 	GameObject zCard = null;
+	public int cardID;
 	Vector3 oldPosition;
 
 	public void OnBeginDrag(PointerEventData eventData){
@@ -76,9 +77,11 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 					}
 				}
 			}
-			oldPosition = zCard.transform.position;
-			zCard.transform.localScale = new Vector3(1,1,1);
-			zCard.transform.position = new Vector3(Screen.width - 88, Screen.height - 126, 0);
+			if(zCard != null){
+				oldPosition = zCard.transform.position;
+				zCard.transform.localScale = new Vector3(1,1,1);
+				zCard.transform.position = new Vector3(Screen.width - 88, Screen.height - 126, 0);
+			}
 		}
 		//reset and zoom out
 		if(Input.GetMouseButtonUp(1)&&zCard){
@@ -86,5 +89,18 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 			zCard.transform.position = oldPosition;
 			zCard = null;
 		}
+	}
+
+	public void playedCard(){
+		GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+		cam.GetComponent<deck>().playedCard(getCardID());
+	}
+
+	public void setCardID(int id){
+		cardID = id;
+	}
+
+	public int getCardID(){
+		return cardID;
 	}
 }
