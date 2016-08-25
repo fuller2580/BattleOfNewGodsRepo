@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.UI;
 public class deck : MonoBehaviour
 {
 	List<int> cards;
 	List<int> hand;
 	bool firstDraw = true;
 	int totalCardsPlayed = 0;
-
+	int resources = 0;
+	public int curResources = 0;
+	int maxResources = 5;
+	public Text text;
 	int currentCardID = 0;
 	public Transform Hand;
 	premadeDecks Decks;
@@ -40,8 +43,17 @@ public class deck : MonoBehaviour
 
 	}
 
-	public void playedCard(int id){
+	void startTurn(){
+		resources++;
+		if(resources>maxResources)resources = maxResources;
+		curResources = resources;
+		text.text = ("Resources: "+curResources.ToString());
+	}
+
+	public void playedCard(int id, int cost){
 		hand.RemoveAt(hand.IndexOf(id));
+		curResources -= cost;
+		text.text = ("Resources: "+curResources.ToString());
 	}
 
 	void drawFunction(){
@@ -56,14 +68,17 @@ public class deck : MonoBehaviour
 		else{
 			print("Hand is full");
 		}
-
-		}
+		startTurn();
+	}
 
 	//this is only a visual representation of the cards still need a way to track them through code so we can make them actually have effects.
 	void drawStartHand(){
 		for(int i = 0; i < 5; i++){
 			drawFunction();
 		}
+		resources = 1;
+		curResources = resources;
+		text.text = ("Resources: "+curResources.ToString());
 	}
 
 	int CardID(){

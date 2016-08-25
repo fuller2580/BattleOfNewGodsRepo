@@ -11,6 +11,7 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	GameObject zCard = null;
 	public int cardID;
 	Vector3 oldPosition;
+	public int cardCost;
 
 	public void OnBeginDrag(PointerEventData eventData){
 		if(eventData.button == PointerEventData.InputButton.Left){
@@ -93,7 +94,7 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
 	public void playedCard(){
 		GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
-		cam.GetComponent<deck>().playedCard(getCardID());
+		cam.GetComponent<deck>().playedCard(getCardID(),getCardCost());
 	}
 
 	public void setCardID(int id){
@@ -102,5 +103,14 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
 	public int getCardID(){
 		return cardID;
+	}
+
+	public int getCardCost(){
+		int cCost = cardCost;
+		if(cCost==100){
+			GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+			cCost = cam.GetComponent<deck>().curResources;
+		}
+		return cCost;
 	}
 }
