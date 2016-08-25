@@ -9,7 +9,8 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	public Transform OGParent = null;
 	GameObject placeHolder = null;
 	GameObject zCard = null;
-	public int cardID;
+	int cardID;
+	public int cardNumber;
 	Vector3 oldPosition;
 	public int cardCost;
 
@@ -95,6 +96,8 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	public void playedCard(){
 		GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
 		cam.GetComponent<deck>().playedCard(getCardID(),getCardCost());
+		cam.GetComponent<cardFunctionality>().activateCard(cardNumber);
+		print("played card: "+this.gameObject.name);
 	}
 
 	public void setCardID(int id){

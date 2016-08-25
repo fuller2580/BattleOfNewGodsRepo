@@ -60,7 +60,7 @@ public class deck : MonoBehaviour
 		if (hand.Count < 7) {
 
 			int cID = CardID();
-			GameObject cardGO = (GameObject)Instantiate (Decks.Axecards [cards[cID]], Vector3.zero, Quaternion.identity);
+			GameObject cardGO = (GameObject)Instantiate (Decks.classDeck[cards[cID]], Vector3.zero, Quaternion.identity);
 			cardGO.transform.SetParent (Hand);
 			cardGO.GetComponent<dragg>().setCardID(cards[cID]);
 			hand.Add(cards[cID]);
