@@ -1,7 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{4BDE4660-4FF1-7C35-393E-50F986A9A103}") = "Battle Of New Gods", "Assembly-CSharp.csproj", "{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battle Of New Gods.CSharp", "Battle Of New Gods.CSharp.csproj", "{DF92D366-D576-4BEC-9704-1699623837AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF92D366-D576-4BEC-9704-1699623837AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF92D366-D576-4BEC-9704-1699623837AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF92D366-D576-4BEC-9704-1699623837AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF92D366-D576-4BEC-9704-1699623837AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
