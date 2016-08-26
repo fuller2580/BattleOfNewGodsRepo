@@ -97,7 +97,7 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 		GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
 		cam.GetComponent<deck>().playedCard(getCardID(),getCardCost());
 		cam.GetComponent<cardFunctionality>().activateCard(cardNumber);
-		print("played card: "+this.gameObject.name);
+		//print("played card: "+this.gameObject.name);
 	}
 
 	public void setCardID(int id){

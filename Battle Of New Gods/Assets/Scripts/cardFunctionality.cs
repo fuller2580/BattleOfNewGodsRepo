@@ -21,7 +21,7 @@ public class cardFunctionality : MonoBehaviour {
 
 	public void activateCard(int cardNumber){
 		//print("activating");
-		print(cardNumber);
+		//print(cardNumber);
 		switch(cardNumber){
 		case 0:
 			StartCoroutine(targetedDamage(1));
@@ -47,29 +47,11 @@ public class cardFunctionality : MonoBehaviour {
 		//print("targeting");
 		while(true){
 			if(Input.GetMouseButtonDown(0)){
-				PointerEventData point = new PointerEventData(EventSystem.current);
-				point.position = Input.mousePosition;
-
-				List<RaycastResult> raycastResults = new List<RaycastResult>();
-				EventSystem.current.RaycastAll(point,raycastResults);
-
-				if(raycastResults.Count > 0){
-					for(int i = 0; i < raycastResults.Count; i++){
-						//if(raycastResults[i].gameObject.tag == "Minion" || raycastResults[i].gameObject.tag == "Hero"){
-						//Will use the above condition check once we have minions and a boss card to target. Below is for testing purposes only.
-						if(raycastResults[i].gameObject.tag == "BossHeroDrop"){
-							tarCard = raycastResults[i].gameObject;
-							//print("target aquired");
-							SelectWarning.gameObject.SetActive(false);
-							//print("target is "+tarCard.name);
-
-
-							//will need to add a stats script to handle health and what not later on, for now just changes visual number.
-							tempBossHP -= dmg;
-							bossHP.text = ("Health: "+tempBossHP.ToString());
-							break;
-						}
-					}
+				tarCard = findTarget();
+				if(tarCard){
+					tempBossHP -= dmg;
+					Text tarHP = findTarHP(tarCard);
+					if(tarHP)tarHP.text = ("Health: "+tempBossHP.ToString());
 				}
 			}
 			yield return null;
@@ -77,7 +59,48 @@ public class cardFunctionality : MonoBehaviour {
 
 
 	}
-	//IEnumerator targetedDamage(int dmg, int extraEffect, int efDmg){
-	//
-	//}
+	IEnumerator targetedDamage(int dmg, int effectID){
+		yield return null;
+	}
+
+	GameObject findTarget(){
+		GameObject tarCard;
+
+		PointerEventData point = new PointerEventData(EventSystem.current);
+		point.position = Input.mousePosition;
+
+		List<RaycastResult> raycastResults = new List<RaycastResult>();
+		EventSystem.current.RaycastAll(point,raycastResults);
+
+		if(raycastResults.Count > 0){
+			for(int i = 0; i < raycastResults.Count; i++){
+				//if(raycastResults[i].gameObject.tag == "Minion" || raycastResults[i].gameObject.tag == "Hero"){
+				//Will use the above condition check once we have minions and a boss card to target. Below is for testing purposes only.
+				if(raycastResults[i].gameObject.tag == "BossHeroDrop"){
+					tarCard = raycastResults[i].gameObject;
+					//print("target aquired");
+					SelectWarning.gameObject.SetActive(false);
+					//print("target is "+tarCard.name);
+
+					return tarCard;
+					//will need to add a stats script to handle health and what not later on, for now just changes visual number.
+				}
+			}
+		}
+		return null;
+	}
+	//will eventually use this for specific targeting ex. only targets minions, only targets boss, ect.
+	GameObject findTarget(string typeTag){
+		return null;
+	}
+
+	Text findTarHP(GameObject tarGO){
+		Text[] hps = tarGO.GetComponentsInChildren<Text>();
+		foreach(Text hp in hps){
+			if(hp.gameObject.name == "hpText"){
+				return hp;
+			}
+		}
+		return null;
+	}
 }
