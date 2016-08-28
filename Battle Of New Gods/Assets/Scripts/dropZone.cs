@@ -20,7 +20,7 @@ public class dropZone : MonoBehaviour, IDropHandler {
 				else if(this.transform.tag == "WeaponDrop" && d.gameObject.tag == "Weapon"){
 					this.transform.tag = "InUse";
 					d.OGParent = this.transform;
-					d.playedCard();
+					d.playedCard(true);
 				}
 				else if(this.transform.tag == "SpellDrop" && d.gameObject.tag == "Spell"){
 					d.OGParent = this.transform;

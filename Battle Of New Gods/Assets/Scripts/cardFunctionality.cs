@@ -30,10 +30,10 @@ public class cardFunctionality : MonoBehaviour {
 			StartCoroutine(targetedDamage(3));
 			break;
 		case 2:
-			StartCoroutine(targetedDamage(5));
+			StartCoroutine(targetedDamage(3));
 			break;
 		case 3:
-			StartCoroutine(targetedDamage(4));
+			StartCoroutine(targetedDamage(3));
 			break;
 		default:
 			break;
@@ -52,6 +52,7 @@ public class cardFunctionality : MonoBehaviour {
 					tempBossHP -= dmg;
 					Text tarHP = findTarHP(tarCard);
 					if(tarHP)tarHP.text = ("Health: "+tempBossHP.ToString());
+					yield break;
 				}
 			}
 			yield return null;
@@ -60,7 +61,27 @@ public class cardFunctionality : MonoBehaviour {
 
 	}
 	IEnumerator targetedDamage(int dmg, int effectID){
-		yield return null;
+		bool waitingForTarget = true;
+		GameObject tarCard;
+		SelectWarning.gameObject.SetActive(true);
+		//print("targeting");
+		switch(effectID){
+		case 0:
+			
+			break;
+			
+		}
+		while(true){
+			if(Input.GetMouseButtonDown(0)){
+				tarCard = findTarget();
+				if(tarCard){
+					tempBossHP -= dmg;
+					Text tarHP = findTarHP(tarCard);
+					if(tarHP)tarHP.text = ("Health: "+tempBossHP.ToString());
+				}
+			}
+			yield return null;
+		}
 	}
 
 	GameObject findTarget(){
