@@ -44,6 +44,13 @@ public class deck : MonoBehaviour
 	}
 
 	void startTurn(){
+		List<GameObject> axeBuffs = new List<GameObject>();
+		axeBuffs.AddRange(GameObject.FindGameObjectsWithTag("axeBuff"));
+		if(axeBuffs.Count > 0){
+			for(int i = 0; i < axeBuffs.Count; i++){
+				axeBuffs[i].GetComponent<axeBonusDamage>().turnPass();
+			}
+		}
 		resources++;
 		if(resources>maxResources)resources = maxResources;
 		curResources = resources;

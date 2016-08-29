@@ -6,6 +6,7 @@ public class premadeDecks : MonoBehaviour {
 	public List<GameObject> Axecards;
 	public List<GameObject> Elecards;
 	public List<GameObject> Solcards;
+	public List<GameObject> LightCards;
 
 	public List<GameObject> classDeck;
 
@@ -18,7 +19,7 @@ public class premadeDecks : MonoBehaviour {
 			classDeck = Elecards;
 			break;
 		case 2:
-			classDeck = Solcards;
+			classDeck = LightCards;
 			break;
 		}
 	}

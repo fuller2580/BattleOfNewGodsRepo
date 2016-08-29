@@ -9,9 +9,12 @@ public class dropZone : MonoBehaviour, IDropHandler {
 
 		dragg d = eventData.pointerDrag.GetComponent<dragg>();
 		if(d != null){
+			bool canPlay = true;
 			int cost = d.gameObject.GetComponent<dragg>().getCardCost();
 			int resources = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<deck>().curResources;
-			if(cost <= resources){
+			bool requiresWeap = d.gameObject.GetComponent<dragg>().requiresWeapon;
+			if(requiresWeap) canPlay = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<cardFunctionality>().axeWeap;
+			if(cost <= resources && canPlay){
 				if(this.transform.tag == "ConstantDrop" && d.gameObject.tag == "Constant"){
 					this.transform.tag = "InUse";
 					d.OGParent = this.transform;

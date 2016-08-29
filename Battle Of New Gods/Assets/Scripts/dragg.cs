@@ -17,13 +17,13 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	[HideInInspector]public bool canDrag = true;
 	bool dragMe = true;
 	GameObject cam;
-
+	public bool requiresWeapon;
 	void Start(){
 		cam = GameObject.FindGameObjectWithTag("MainCamera");
 	}
 
 	public void OnBeginDrag(PointerEventData eventData){
-		if(eventData.button == PointerEventData.InputButton.Left && dragMe && cam.GetComponent<cardFunctionality>().freeToMove()){
+		if(eventData.button == PointerEventData.InputButton.Left && dragMe){
 			//print("OnBeginDrag");
 			placeHolder = new GameObject();
 			placeHolder.transform.SetParent(this.transform.parent);
@@ -43,25 +43,27 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	public void OnDrag(PointerEventData eventData){
 		//print("OnDrag");
 		if(eventData.button == PointerEventData.InputButton.Left && dragMe && cam.GetComponent<cardFunctionality>().freeToMove()){
-			transform.position = eventData.position;
-			
-			int newSiblingIndex = OGParent.childCount;
-			for(int i = 0; i < OGParent.childCount; i++){
-				if(transform.position.x < OGParent.GetChild(i).position.x){
-					newSiblingIndex = i;
-					if(placeHolder.transform.GetSiblingIndex() < newSiblingIndex){
-						newSiblingIndex--;
+				transform.position = eventData.position;
+				
+				int newSiblingIndex = OGParent.childCount;
+				for(int i = 0; i < OGParent.childCount; i++){
+					if(transform.position.x < OGParent.GetChild(i).position.x){
+						newSiblingIndex = i;
+						if(placeHolder.transform.GetSiblingIndex() < newSiblingIndex){
+							newSiblingIndex--;
+						}
+						break;
 					}
-					break;
 				}
-			}
-			
-			placeHolder.transform.SetSiblingIndex(newSiblingIndex);
+				
+				placeHolder.transform.SetSiblingIndex(newSiblingIndex);
+
 		}
 	}
 	public void OnEndDrag(PointerEventData eventData){
 		//print("OnEndDrag");
-		if(eventData.button == PointerEventData.InputButton.Left && dragMe && cam.GetComponent<cardFunctionality>().freeToMove()){
+
+		if(eventData.button == PointerEventData.InputButton.Left && dragMe){
 			transform.SetParent(OGParent);
 			transform.SetSiblingIndex(placeHolder.transform.GetSiblingIndex());
 			GetComponent<CanvasGroup>().blocksRaycasts = true;
@@ -121,19 +123,19 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
 	public void activateWeapon(){
 		if(cam.GetComponent<deck>().curResources > getCardCost()){
-			cam.GetComponent<cardFunctionality>().activateCard(cardNumber);
+			cam.GetComponent<cardFunctionality>().activateCard(cardNumber,this.gameObject);
 			cam.GetComponent<deck>().curResources -= getCardCost();
 		}
 	}
 
 	public void playedCard(){
 		cam.GetComponent<deck>().playedCard(getCardID(),getCardCost());
-		cam.GetComponent<cardFunctionality>().activateCard(cardNumber);
+		cam.GetComponent<cardFunctionality>().activateCard(cardNumber,this.gameObject);
 		canDrag = false;
 	}
 	public void playedCard(bool isWeapon){
 		cam.GetComponent<deck>().playedCard(getCardID(),getCardCost());
-		if(!isWeapon)cam.GetComponent<cardFunctionality>().activateCard(cardNumber);
+		if(!isWeapon)cam.GetComponent<cardFunctionality>().activateCard(cardNumber,this.gameObject);
 		else cam.GetComponent<cardFunctionality>().weapEquip();
 		canDrag = false;
 	}

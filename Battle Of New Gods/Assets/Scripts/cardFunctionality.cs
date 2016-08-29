@@ -14,6 +14,7 @@ public class cardFunctionality : MonoBehaviour {
 	int axeWeaponBonusDamage = 0;
 	bool axeDouble = false;
 	public bool axeWeap = false;
+	public GameObject aBonusDamage;
 	// Use this for initialization
 	void Start () {
 	
@@ -24,7 +25,7 @@ public class cardFunctionality : MonoBehaviour {
 	
 	}
 
-	public void activateCard(int cardNumber){
+	public void activateCard(int cardNumber, GameObject cardGO){
 		waitingOnCard = true;
 		int dub = Random.Range(0,5);
 		int dmg;
@@ -65,7 +66,9 @@ public class cardFunctionality : MonoBehaviour {
 			StartCoroutine(targetedDamage(3 + axeBonusDamage));
 			break;
 		case 8:
-			//increase axebonusdamage
+			GameObject abd = (GameObject)Instantiate(aBonusDamage,Vector3.zero,Quaternion.identity);
+			abd.GetComponent<axeBonusDamage>().setBonus(3,3);
+			abd.GetComponent<axeBonusDamage>().parent = cardGO;
 			waitingOnCard = false;
 			break;
 		case 9:
@@ -76,6 +79,30 @@ public class cardFunctionality : MonoBehaviour {
 			//increase axebonusdamage based on missing health
 			waitingOnCard = false;
 			break;
+		case 11:
+			//must target constant
+			waitingOnCard = false;
+			break;
+		case 12:
+			//cards 1 less w.o weap, cards 1 more  + increase axebonusdamage w/ weap.
+			waitingOnCard = false;
+			break;
+		case 13:
+			//deal dmg to all enemies, increase axebonusdamage by 1 for each enemy hit for next turn.
+			waitingOnCard = false;
+			break;
+		case 14:
+			//random target
+			waitingOnCard = false;
+			break;
+		case 15:
+			//draw card based on hp.
+			waitingOnCard = false;
+			break;
+		case 16:
+			//deal damage = cost*4 + axebonusdamage, skip next turn.
+			waitingOnCard = false;
+			break;
 		default:
 			waitingOnCard = false;
 			break;
@@ -83,7 +110,6 @@ public class cardFunctionality : MonoBehaviour {
 	}
 
 	IEnumerator targetedDamage(int dmg){
-		bool waitingForTarget = true;
 		GameObject tarCard;
 		SelectWarning.gameObject.SetActive(true);
 		//print("targeting");
@@ -104,7 +130,6 @@ public class cardFunctionality : MonoBehaviour {
 
 	}
 	IEnumerator targetedDamage(int dmg, int effectID){
-		bool waitingForTarget = true;
 		GameObject tarCard;
 		SelectWarning.gameObject.SetActive(true);
 		//print("targeting");
@@ -174,5 +199,8 @@ public class cardFunctionality : MonoBehaviour {
 	}
 	public void weapEquip(){
 		axeWeap = true;
+	}
+	public void addAxeBonus(int bdmg){
+		axeBonusDamage += bdmg;
 	}
 }
