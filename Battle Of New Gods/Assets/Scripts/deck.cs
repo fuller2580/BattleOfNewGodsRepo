@@ -68,7 +68,6 @@ public class deck : MonoBehaviour
 		else{
 			print("Hand is full");
 		}
-		startTurn();
 	}
 
 	//this is only a visual representation of the cards still need a way to track them through code so we can make them actually have effects.
@@ -76,9 +75,6 @@ public class deck : MonoBehaviour
 		for(int i = 0; i < 5; i++){
 			drawFunction();
 		}
-		resources = 1;
-		curResources = resources;
-		text.text = ("Resources: "+curResources.ToString());
 	}
 
 	int CardID(){
@@ -104,8 +100,12 @@ public class deck : MonoBehaviour
 			if(firstDraw){
 				drawStartHand(); 
 				firstDraw = false;
+				startTurn();
 			}
-			else drawFunction();
+			else {
+				drawFunction();
+				startTurn();
+			}
 		}
 	}
 }

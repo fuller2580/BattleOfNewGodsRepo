@@ -16,9 +16,14 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	public bool isWeapon;
 	[HideInInspector]public bool canDrag = true;
 	bool dragMe = true;
+	GameObject cam;
+
+	void Start(){
+		cam = GameObject.FindGameObjectWithTag("MainCamera");
+	}
 
 	public void OnBeginDrag(PointerEventData eventData){
-		if(eventData.button == PointerEventData.InputButton.Left && dragMe){
+		if(eventData.button == PointerEventData.InputButton.Left && dragMe && cam.GetComponent<cardFunctionality>().freeToMove()){
 			//print("OnBeginDrag");
 			placeHolder = new GameObject();
 			placeHolder.transform.SetParent(this.transform.parent);
@@ -37,7 +42,7 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	}
 	public void OnDrag(PointerEventData eventData){
 		//print("OnDrag");
-		if(eventData.button == PointerEventData.InputButton.Left && dragMe){
+		if(eventData.button == PointerEventData.InputButton.Left && dragMe && cam.GetComponent<cardFunctionality>().freeToMove()){
 			transform.position = eventData.position;
 			
 			int newSiblingIndex = OGParent.childCount;
@@ -56,7 +61,7 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	}
 	public void OnEndDrag(PointerEventData eventData){
 		//print("OnEndDrag");
-		if(eventData.button == PointerEventData.InputButton.Left && dragMe){
+		if(eventData.button == PointerEventData.InputButton.Left && dragMe && cam.GetComponent<cardFunctionality>().freeToMove()){
 			transform.SetParent(OGParent);
 			transform.SetSiblingIndex(placeHolder.transform.GetSiblingIndex());
 			GetComponent<CanvasGroup>().blocksRaycasts = true;
@@ -115,7 +120,6 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	}
 
 	public void activateWeapon(){
-		GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
 		if(cam.GetComponent<deck>().curResources > getCardCost()){
 			cam.GetComponent<cardFunctionality>().activateCard(cardNumber);
 			cam.GetComponent<deck>().curResources -= getCardCost();
@@ -123,15 +127,14 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	}
 
 	public void playedCard(){
-		GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
 		cam.GetComponent<deck>().playedCard(getCardID(),getCardCost());
 		cam.GetComponent<cardFunctionality>().activateCard(cardNumber);
 		canDrag = false;
 	}
 	public void playedCard(bool isWeapon){
-		GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
 		cam.GetComponent<deck>().playedCard(getCardID(),getCardCost());
-		if(isWeapon)cam.GetComponent<cardFunctionality>().activateCard(cardNumber);
+		if(!isWeapon)cam.GetComponent<cardFunctionality>().activateCard(cardNumber);
+		else cam.GetComponent<cardFunctionality>().weapEquip();
 		canDrag = false;
 	}
 
@@ -146,7 +149,6 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	public int getCardCost(){
 		int cCost = cardCost;
 		if(cCost==100){
-			GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
 			cCost = cam.GetComponent<deck>().curResources;
 		}
 		return cCost;

@@ -9,6 +9,11 @@ public class cardFunctionality : MonoBehaviour {
 	int tempBossHP = 50;
 	public Text bossHP;
 	public Text SelectWarning;
+	bool waitingOnCard = false;
+	int axeBonusDamage = 0;
+	int axeWeaponBonusDamage = 0;
+	bool axeDouble = false;
+	public bool axeWeap = false;
 	// Use this for initialization
 	void Start () {
 	
@@ -20,22 +25,59 @@ public class cardFunctionality : MonoBehaviour {
 	}
 
 	public void activateCard(int cardNumber){
-		//print("activating");
-		//print(cardNumber);
+		waitingOnCard = true;
+		int dub = Random.Range(0,5);
+		int dmg;
 		switch(cardNumber){
 		case 0:
-			StartCoroutine(targetedDamage(1));
+			dmg = 1 + axeWeaponBonusDamage + axeBonusDamage;
+			if(axeDouble){
+				if(dub == 4) dmg = dmg*2;
+			}
+			StartCoroutine(targetedDamage(dmg));
 			break;
 		case 1:
-			StartCoroutine(targetedDamage(3));
+			dmg = 3 + axeWeaponBonusDamage + axeBonusDamage;
+			if(axeDouble){
+				if(dub == 4) dmg = dmg*2;
+			}
+			StartCoroutine(targetedDamage(dmg));
 			break;
 		case 2:
-			StartCoroutine(targetedDamage(3));
+			StartCoroutine(targetedDamage(3 + axeWeaponBonusDamage + axeBonusDamage));
 			break;
 		case 3:
-			StartCoroutine(targetedDamage(3));
+			StartCoroutine(targetedDamage(3 + axeWeaponBonusDamage + axeBonusDamage));
+			break;
+		case 4:
+			//crit chance
+			waitingOnCard = false;
+			break;
+		case 5:
+			axeDouble = true;
+			waitingOnCard = false;
+			break;
+		case 6:
+			//killing blow gives card
+			waitingOnCard = false;
+			break;
+		case 7:
+			StartCoroutine(targetedDamage(3 + axeBonusDamage));
+			break;
+		case 8:
+			//increase axebonusdamage
+			waitingOnCard = false;
+			break;
+		case 9:
+			StartCoroutine(targetedDamage(3 + axeBonusDamage));
+			//random other target aswell
+			break;
+		case 10:
+			//increase axebonusdamage based on missing health
+			waitingOnCard = false;
 			break;
 		default:
+			waitingOnCard = false;
 			break;
 		}
 	}
@@ -52,6 +94,7 @@ public class cardFunctionality : MonoBehaviour {
 					tempBossHP -= dmg;
 					Text tarHP = findTarHP(tarCard);
 					if(tarHP)tarHP.text = ("Health: "+tempBossHP.ToString());
+					waitingOnCard = false;
 					yield break;
 				}
 			}
@@ -78,6 +121,7 @@ public class cardFunctionality : MonoBehaviour {
 					tempBossHP -= dmg;
 					Text tarHP = findTarHP(tarCard);
 					if(tarHP)tarHP.text = ("Health: "+tempBossHP.ToString());
+					waitingOnCard = false;
 				}
 			}
 			yield return null;
@@ -123,5 +167,12 @@ public class cardFunctionality : MonoBehaviour {
 			}
 		}
 		return null;
+	}
+
+	public bool freeToMove(){
+		return !waitingOnCard;
+	}
+	public void weapEquip(){
+		axeWeap = true;
 	}
 }
