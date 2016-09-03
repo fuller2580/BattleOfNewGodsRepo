@@ -6,6 +6,7 @@ public class axeBonusDamage : MonoBehaviour {
 	int turns;
 	GameObject cam;
 	public GameObject parent;
+	public bool oneTime = true;
 	// Use this for initialization
 	void Start () {
 	
@@ -29,8 +30,10 @@ public class axeBonusDamage : MonoBehaviour {
 	void endBonus(){
 		bonusDmg *= -1;
 		cam.GetComponent<cardFunctionality>().addAxeBonus(bonusDmg);
-		parent.transform.parent.tag = "ConstantDrop";
-		Destroy(parent.gameObject);
+		if(oneTime){
+			parent.transform.parent.tag = "ConstantDrop";
+			Destroy(parent.gameObject);
+		}
 		Destroy(this.gameObject);
 	}
 }

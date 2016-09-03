@@ -12,9 +12,12 @@ public class deck : MonoBehaviour
 	public int curResources = 0;
 	int maxResources = 5;
 	public Text text;
+	public Text HP;
 	int currentCardID = 0;
 	public Transform Hand;
 	premadeDecks Decks;
+	int maxHP;
+	int curHP;
 	public void shuffle()
 	{
 		if (hand == null) {
@@ -51,10 +54,18 @@ public class deck : MonoBehaviour
 				axeBuffs[i].GetComponent<axeBonusDamage>().turnPass();
 			}
 		}
+		axeBuffs.Clear();
+		axeBuffs.AddRange(GameObject.FindGameObjectsWithTag("bloodRage"));
+		if(axeBuffs.Count > 0){
+			for(int i = 0; i < axeBuffs.Count; i++){
+				axeBuffs[i].GetComponent<bloodRage>().turnPass();
+			}
+		}
 		resources++;
 		if(resources>maxResources)resources = maxResources;
 		curResources = resources;
 		text.text = ("Resources: "+curResources.ToString());
+		hitPlayer(1);
 	}
 
 	public void playedCard(int id, int cost){
@@ -77,7 +88,6 @@ public class deck : MonoBehaviour
 		}
 	}
 
-	//this is only a visual representation of the cards still need a way to track them through code so we can make them actually have effects.
 	void drawStartHand(){
 		for(int i = 0; i < 5; i++){
 			drawFunction();
@@ -95,10 +105,22 @@ public class deck : MonoBehaviour
 		}
 	}
 
+	void hitPlayer(int dmg){
+		curHP -= dmg;
+		HP.text = ("Health: "+curHP);
+	}
+
+	public int getHP(){
+		return curHP;
+	}
+
 	void Start ()
 	{
 		Decks = this.gameObject.GetComponent<premadeDecks>();
 		shuffle ();
+		maxHP = Decks.maxHP;
+		curHP = maxHP;
+		HP.text = ("Health: "+curHP);
 	}
 
 	void Update () {

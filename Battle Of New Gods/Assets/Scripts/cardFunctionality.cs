@@ -76,7 +76,8 @@ public class cardFunctionality : MonoBehaviour {
 			//random other target aswell
 			break;
 		case 10:
-			//increase axebonusdamage based on missing health
+			cardGO.GetComponent<bloodRage>().turnPass();
+			cardGO.tag = "bloodRage";
 			waitingOnCard = false;
 			break;
 		case 11:
