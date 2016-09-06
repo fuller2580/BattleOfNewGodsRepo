@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\axeBonusDamage.cs" />
      <Compile Include="Assets\Scripts\bloodRage.cs" />
+     <Compile Include="Assets\Scripts\bossMinion.cs" />
      <Compile Include="Assets\Scripts\cardFunctionality.cs" />
      <Compile Include="Assets\Scripts\deck.cs" />
      <Compile Include="Assets\Scripts\dragg.cs" />

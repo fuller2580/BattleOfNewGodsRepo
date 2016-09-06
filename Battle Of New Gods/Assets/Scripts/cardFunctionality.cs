@@ -81,8 +81,7 @@ public class cardFunctionality : MonoBehaviour {
 			waitingOnCard = false;
 			break;
 		case 11:
-			//must target constant
-			waitingOnCard = false;
+			StartCoroutine(targetedDamage(4 + axeBonusDamage,"BossMinion"));
 			break;
 		case 12:
 			//cards 1 less w.o weap, cards 1 more  + increase axebonusdamage w/ weap.
@@ -121,6 +120,27 @@ public class cardFunctionality : MonoBehaviour {
 					tempBossHP -= dmg;
 					Text tarHP = findTarHP(tarCard);
 					if(tarHP)tarHP.text = ("Health: "+tempBossHP.ToString());
+					waitingOnCard = false;
+					yield break;
+				}
+			}
+			yield return null;
+		}
+
+
+	}
+	IEnumerator targetedDamage(int dmg, string type){
+		GameObject tarCard;
+		SelectWarning.gameObject.SetActive(true);
+		//print("targeting");
+		while(true){
+			if(Input.GetMouseButtonDown(0)){
+				tarCard = findTarget(type);
+				if(tarCard){
+					if(type == "BossMinion"){
+						if(tarCard)tarCard.GetComponent<bossMinion>().dealDamage(dmg);
+					}
+					
 					waitingOnCard = false;
 					yield break;
 				}
@@ -182,6 +202,29 @@ public class cardFunctionality : MonoBehaviour {
 	}
 	//will eventually use this for specific targeting ex. only targets minions, only targets boss, ect.
 	GameObject findTarget(string typeTag){
+		GameObject tarCard;
+
+		PointerEventData point = new PointerEventData(EventSystem.current);
+		point.position = Input.mousePosition;
+
+		List<RaycastResult> raycastResults = new List<RaycastResult>();
+		EventSystem.current.RaycastAll(point,raycastResults);
+
+		if(raycastResults.Count > 0){
+			for(int i = 0; i < raycastResults.Count; i++){
+				//if(raycastResults[i].gameObject.tag == "Minion" || raycastResults[i].gameObject.tag == "Hero"){
+				//Will use the above condition check once we have minions and a boss card to target. Below is for testing purposes only.
+				if(raycastResults[i].gameObject.tag == typeTag){
+					tarCard = raycastResults[i].gameObject;
+					//print("target aquired");
+					SelectWarning.gameObject.SetActive(false);
+					//print("target is "+tarCard.name);
+
+					return tarCard;
+					//will need to add a stats script to handle health and what not later on, for now just changes visual number.
+				}
+			}
+		}
 		return null;
 	}
 
