@@ -18,6 +18,7 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	bool dragMe = true;
 	GameObject cam;
 	public bool requiresWeapon;
+	public int xCost;
 	void Start(){
 		cam = GameObject.FindGameObjectWithTag("MainCamera");
 	}
@@ -42,7 +43,7 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	}
 	public void OnDrag(PointerEventData eventData){
 		//print("OnDrag");
-		if(eventData.button == PointerEventData.InputButton.Left && dragMe && cam.GetComponent<cardFunctionality>().freeToMove()){
+		if(eventData.button == PointerEventData.InputButton.Left && dragMe && cam.GetComponent<cardFunctionality>().freeToMove() && !cam.GetComponent<deck>().skipping){
 				transform.position = eventData.position;
 				
 				int newSiblingIndex = OGParent.childCount;
@@ -122,9 +123,11 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	}
 
 	public void activateWeapon(){
-		if(cam.GetComponent<deck>().curResources > getCardCost()){
+		deck Deck = cam.GetComponent<deck>();
+		if(Deck.curResources > getCardCost()){
 			cam.GetComponent<cardFunctionality>().activateCard(cardNumber,this.gameObject);
-			cam.GetComponent<deck>().curResources -= getCardCost();
+			Deck.curResources -= getCardCost();
+			Deck.text.text = ("Resources: "+Deck.curResources.ToString());
 		}
 	}
 
@@ -152,6 +155,7 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 		int cCost = cardCost;
 		if(cCost==100){
 			cCost = cam.GetComponent<deck>().curResources;
+			xCost = cCost;
 		}
 		return cCost;
 	}

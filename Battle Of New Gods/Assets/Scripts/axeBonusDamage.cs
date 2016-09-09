@@ -31,9 +31,13 @@ public class axeBonusDamage : MonoBehaviour {
 		bonusDmg *= -1;
 		cam.GetComponent<cardFunctionality>().addAxeBonus(bonusDmg);
 		if(oneTime){
-			parent.transform.parent.tag = "ConstantDrop";
-			Destroy(parent.gameObject);
+			if(parent.gameObject.tag == "Constant")endConstant();
+			else Destroy(parent.gameObject);
 		}
 		Destroy(this.gameObject);
+	}
+	void endConstant(){
+		parent.transform.parent.tag = "ConstantDrop";
+		Destroy(parent.gameObject);
 	}
 }

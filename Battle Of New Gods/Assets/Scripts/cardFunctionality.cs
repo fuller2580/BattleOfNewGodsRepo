@@ -45,10 +45,10 @@ public class cardFunctionality : MonoBehaviour {
 			StartCoroutine(targetedDamage(dmg));
 			break;
 		case 2:
-			StartCoroutine(targetedDamage(3 + axeWeaponBonusDamage + axeBonusDamage));
+			StartCoroutine(targetedDamage(5 + axeWeaponBonusDamage + axeBonusDamage));
 			break;
 		case 3:
-			StartCoroutine(targetedDamage(3 + axeWeaponBonusDamage + axeBonusDamage));
+			aoeDamage((3+ axeWeaponBonusDamage + axeBonusDamage),true,false,false);
 			break;
 		case 4:
 			//crit chance
@@ -82,13 +82,21 @@ public class cardFunctionality : MonoBehaviour {
 			break;
 		case 11:
 			StartCoroutine(targetedDamage(4 + axeBonusDamage,"BossMinion"));
+			if(axeWeap){
+				tempBossHP -= (4+axeBonusDamage);
+				Text tarHP = findTarHP(GameObject.FindGameObjectWithTag("BossHeroDrop"));
+				if(tarHP)tarHP.text = ("Health: "+tempBossHP.ToString());
+			}
 			break;
 		case 12:
 			//cards 1 less w.o weap, cards 1 more  + increase axebonusdamage w/ weap.
 			waitingOnCard = false;
 			break;
 		case 13:
-			//deal dmg to all enemies, increase axebonusdamage by 1 for each enemy hit for next turn.
+			int bDmg = aoeDamage((4+axeBonusDamage),true,false,true);
+			GameObject abDmg = (GameObject)Instantiate(aBonusDamage,Vector3.zero,Quaternion.identity);
+			abDmg.GetComponent<axeBonusDamage>().setBonus(bDmg,1);
+			abDmg.GetComponent<axeBonusDamage>().parent = cardGO;
 			waitingOnCard = false;
 			break;
 		case 14:
@@ -96,12 +104,20 @@ public class cardFunctionality : MonoBehaviour {
 			waitingOnCard = false;
 			break;
 		case 15:
-			//draw card based on hp.
+			int cardsToDraw = 1;
+			deck Deckk = this.gameObject.GetComponent<deck>();
+			if(Deckk.getHP() < 18){
+				cardsToDraw++;
+				if(Deckk.getHP() < 9) cardsToDraw++;
+			}
+			for(int i = 0; i < cardsToDraw; i++){
+				Deckk.drawFunction();
+			}
 			waitingOnCard = false;
 			break;
 		case 16:
-			//deal damage = cost*4 + axebonusdamage, skip next turn.
-			waitingOnCard = false;
+			StartCoroutine(targetedDamage((cardGO.GetComponent<dragg>().xCost * 4) + axeBonusDamage));
+			this.gameObject.GetComponent<deck>().skipTurn = true;
 			break;
 		default:
 			waitingOnCard = false;
@@ -226,6 +242,25 @@ public class cardFunctionality : MonoBehaviour {
 			}
 		}
 		return null;
+	}
+
+	int aoeDamage(int dmg, bool hitEnemies, bool hitAllies, bool reNumTargets){
+		List<GameObject> targets;
+		targets = new List<GameObject>();
+		if(hitEnemies)targets.AddRange(GameObject.FindGameObjectsWithTag("BossMinion"));
+		if(hitEnemies){
+			tempBossHP -= dmg;
+			Text tarHP = findTarHP(GameObject.FindGameObjectWithTag("BossHeroDrop"));
+			if(tarHP)tarHP.text = ("Health: "+tempBossHP.ToString());
+		}
+		if(targets.Count > 0){
+			for(int i = 0; i < targets.Count; i++){
+				if(targets[i].tag == "BossMinion")targets[i].GetComponent<bossMinion>().dealDamage(dmg);
+			}
+		}
+		if(reNumTargets)return (targets.Count+1);
+		else waitingOnCard = false;
+		return 0;
 	}
 
 	Text findTarHP(GameObject tarGO){

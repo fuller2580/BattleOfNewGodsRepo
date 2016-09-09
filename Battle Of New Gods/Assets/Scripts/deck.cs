@@ -18,6 +18,8 @@ public class deck : MonoBehaviour
 	premadeDecks Decks;
 	int maxHP;
 	int curHP;
+	public bool skipTurn = false;
+	public bool skipping = false;
 	public void shuffle()
 	{
 		if (hand == null) {
@@ -74,10 +76,11 @@ public class deck : MonoBehaviour
 		text.text = ("Resources: "+curResources.ToString());
 	}
 
-	void drawFunction(){
+	public void drawFunction(){
+		int cID = CardID();
 		if (hand.Count < 7) {
 
-			int cID = CardID();
+
 			GameObject cardGO = (GameObject)Instantiate (Decks.classDeck[cards[cID]], Vector3.zero, Quaternion.identity);
 			cardGO.transform.SetParent (Hand);
 			cardGO.GetComponent<dragg>().setCardID(cards[cID]);
@@ -125,14 +128,21 @@ public class deck : MonoBehaviour
 
 	void Update () {
 		
-		if(Input.GetKeyDown(KeyCode.Space)){
+		if(Input.GetKeyDown(KeyCode.Space)&&this.gameObject.GetComponent<cardFunctionality>().freeToMove()){
 			if(firstDraw){
 				drawStartHand(); 
 				firstDraw = false;
 				startTurn();
 			}
 			else {
-				drawFunction();
+				if(!skipTurn){
+					drawFunction();
+					skipping = false;
+				}
+				else{
+					skipping = true;
+					skipTurn = false;
+				}
 				startTurn();
 			}
 		}
