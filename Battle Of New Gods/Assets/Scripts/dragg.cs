@@ -18,7 +18,7 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 	bool dragMe = true;
 	GameObject cam;
 	public bool requiresWeapon;
-	public int xCost;
+	[HideInInspector]public int xCost;
 	void Start(){
 		cam = GameObject.FindGameObjectWithTag("MainCamera");
 	}

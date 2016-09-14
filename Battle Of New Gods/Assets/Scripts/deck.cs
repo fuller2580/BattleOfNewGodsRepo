@@ -83,6 +83,7 @@ public class deck : MonoBehaviour
 
 			GameObject cardGO = (GameObject)Instantiate (Decks.classDeck[cards[cID]], Vector3.zero, Quaternion.identity);
 			cardGO.transform.SetParent (Hand);
+			cardGO.transform.localScale = new Vector3(1,1,1);
 			cardGO.GetComponent<dragg>().setCardID(cards[cID]);
 			hand.Add(cards[cID]);
 		}
