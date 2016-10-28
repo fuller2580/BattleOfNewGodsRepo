@@ -116,7 +116,7 @@ public class dragg : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 		}
 		//reset and zoom out
 		if(Input.GetMouseButtonUp(1)&&zCard){
-			transform.localScale = new Vector3(1,1,1);
+			transform.localScale = new Vector3(1.33f,1.33f,1);
 			transform.position = oldPosition;
 			zCard = false;
 		}

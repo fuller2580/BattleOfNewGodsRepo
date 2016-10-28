@@ -25,6 +25,98 @@ public class cardFunctionality : MonoBehaviour {
 	
 	}
 
+	public void activateBossCard(int cardNumber, GameObject cardGO){
+		waitingOnCard = true;
+		switch(cardNumber){
+		case 0:
+			//boss card
+			waitingOnCard = false;
+			break;
+		case 1:
+			//clid constant
+			waitingOnCard = false;
+			break;
+		case 2:
+			//chill constant
+			waitingOnCard = false;
+			break;
+		case 3:
+			//eighth constant
+			waitingOnCard = false;
+			break;
+		case 4:
+			//alah drogbar
+			//track all player resources spent
+			//deal damage based on how many spent
+			waitingOnCard = false;
+			break;
+		case 5:
+			//random constant activates twice
+			waitingOnCard = false;
+			break;
+		case 6:
+			//all palyers take 2x damage for 1 turn
+			waitingOnCard = false;
+			break;
+		case 7:
+			//random player cant cast spells during their next turn
+			waitingOnCard =false;
+			break;
+		case 8:
+			//random players graveyard removed from game
+			//deal damage based on number of cards removed
+			waitingOnCard = false; 
+			break;
+		case 9:
+			//boss takes 2 turns next turn
+			waitingOnCard = false;
+			break;
+		case 10:
+			//play another card
+			waitingOnCard = false;
+			break;
+		case 11:
+			//disarm all players for x turns
+			waitingOnCard = false;
+			break;
+		case 12:
+			//sweets o clock on random constant
+			waitingOnCard = false;
+			break;
+		case 13:
+			//link 2 players, damage dealt to one is also dealt to the other
+			waitingOnCard = false;
+			break;
+		case 14:
+			//clid, chill, eighth gain +3 attack
+			waitingOnCard = false;
+			break;
+		case 15:
+			//deal damage to all palyers, enrage eighth
+			waitingOnCard = false;
+			break;
+		case 16:
+			//players next turn lasts 10s
+			waitingOnCard = false;
+			break;
+		case 17:
+			//enrage chill
+			waitingOnCard = false;
+			break;
+		case 18:
+			//deal damage to all palyers, enrage clid
+			waitingOnCard = false;
+			break;
+		case 19:
+			//players discard a random card and take damage equal to its cost
+			waitingOnCard = false;
+			break;
+		default:
+			waitingOnCard = false;
+			break;
+		}
+	}
+
 	public void activateCard(int cardNumber, GameObject cardGO){
 		waitingOnCard = true;
 		int dub = Random.Range(0,5);

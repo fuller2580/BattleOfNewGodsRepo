@@ -1,7 +1,11 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{4BDE4660-4FF1-7C35-393E-50F986A9A103}") = "Battle Of New Gods", "Assembly-CSharp-firstpass.csproj", "{724AF48E-3849-9BEE-E123-25D9669CDBB8}"
+EndProject
 Project("{4BDE4660-4FF1-7C35-393E-50F986A9A103}") = "Battle Of New Gods", "Assembly-CSharp.csproj", "{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}"
+EndProject
+Project("{4BDE4660-4FF1-7C35-393E-50F986A9A103}") = "Battle Of New Gods", "Assembly-CSharp-Editor.csproj", "{ECE27095-A163-BBE7-70F1-0639451B4746}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{724AF48E-3849-9BEE-E123-25D9669CDBB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724AF48E-3849-9BEE-E123-25D9669CDBB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724AF48E-3849-9BEE-E123-25D9669CDBB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724AF48E-3849-9BEE-E123-25D9669CDBB8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FCA2918-69A4-E3A2-21A4-E04E6B24A717}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECE27095-A163-BBE7-70F1-0639451B4746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE27095-A163-BBE7-70F1-0639451B4746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE27095-A163-BBE7-70F1-0639451B4746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE27095-A163-BBE7-70F1-0639451B4746}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
